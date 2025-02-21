@@ -79,9 +79,14 @@ require('lazy').setup({
           ollama = function()
             return require("codecompanion.adapters").extend("openai_compatible", {
               env_replaced = {
+                -- owui
+                url = "http://100.109.37.59:8080/api",
+                model = "google_genai.gemini-2.0-flash-thinking-exp-1219",
+                api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI0MDk1ZWVmLTBmZDEtNGQ0MS1iNGEyLWEzMjRjNDk1NWZlMSJ9.mkpWXBKxuI0fDutOCR8EyUiB4wcPncXOmA-3MHyOsd8",
+
                 -- glhf
                 url = "https://glhf.chat/api/openai",
-                model = "hf:meta-llama/Llama-3.3-70B-Instruct"
+                model = "hf:Qwen/Qwen2.5-Coder-32B-Instruct",
 
                 -- pc
                 -- url = "http://100.95.18.138:42069",
