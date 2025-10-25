@@ -48,10 +48,10 @@ alias l="ls"
 alias snp="/Users/illusion/Documents/randomCodes/snippets/snippets.sh"
 alias aseprite="/Users/illusion/Documents/Hobby/source/aseprite/build/bin/aseprite"
 alias fe="/opt/homebrew/bin/yazi"
-alias cat=bat
 alias pdb="cloud-sql-proxy aftershoot-co:us-central1:editing-uploader -p 5434"
 alias sdb="cloud-sql-proxy aftershoot-stage:us-central1:aftershoot-stage-db -p 5436"
 alias jbuild="cd ./secret/jarvis && cargo build --release && cd - && mv ./secret/jarvis/target/release/jarvis ."
+alias initflake="~/dotfiles/scripts/init-direnv-flake.sh"
 
 # Nvim configs
 # alias nvim="/Users/illusion/nvim/bin/nvim"
@@ -83,6 +83,10 @@ fish_vi_key_bindings
 
 # atuin
 atuin init fish | source
+
+# carapace
+set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense'
+carapace _carapace | source
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"

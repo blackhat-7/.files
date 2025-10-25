@@ -36,5 +36,10 @@
       enableFishIntegration = true;
     };
     # yt-dlp.enable = true;
+    carapace = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    obsidian.enable = true;
   };
 }
