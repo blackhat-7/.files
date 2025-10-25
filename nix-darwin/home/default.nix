@@ -34,6 +34,7 @@
     pkgs.brave
     pkgs.ffmpeg_6-headless
     pkgs.exempi
+    pkgs.sqlc
   ];
 
 

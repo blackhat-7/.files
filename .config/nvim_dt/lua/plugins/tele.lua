@@ -47,6 +47,7 @@ vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { des
 vim.keymap.set('n', '<leader>fa', "<cmd>Telescope find_files no_ignore=true hidden=true<cr>", { desc = '[F]ind [F]iles [A]ll' })
 vim.keymap.set('n', '<leader>fz', require('telescope.builtin').current_buffer_fuzzy_find, { desc = '[F]ind fu[Z]zy' })
 vim.keymap.set('n', '<leader>fs', require('telescope.builtin').lsp_dynamic_workspace_symbols, { desc = '[F]ind [S]ymbols' })
+vim.keymap.set('n', 'gt', require('telescope.builtin').lsp_type_definitions, { desc = '[G]o to [T]ype' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[F]ind [H]elp' })
 vim.keymap.set('n', '<leader>fk', require('telescope.builtin').keymaps, { desc = '[F]ind [K]eymaps' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[F]ind current [W]ord' })

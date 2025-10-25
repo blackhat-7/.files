@@ -6,6 +6,8 @@
       "zen"
       "docker"
       "linear-linear"
+      "chromium"
+      "tigervnc-viewer"
     ];
   };
 }
