@@ -1,32 +1,32 @@
 { pkgs, ... }: {
   programs.aerospace = {
     enable = true;
-    userSettings = 
+    userSettings =
       let
         sticky-pip-script = pkgs.writeShellScriptBin "sticky-pip" ''
           #!${pkgs.bash}/bin/bash
 
-          # --- Debugging ---
-          # Redirect all output of this script to a log file
-          exec &>> /tmp/aerospace-debug.log
-
+          # Debug log
+          exec &>> /tmp/aerospace-pip-debug.log
           echo "--- $(date): Script Triggered ---"
 
-          # Use a more robust awk command to find the window ID on the line that contains both 'Zen' and 'Picture-in-Picture'
-          PIP_WIN_ID=$(aerospace list-windows --all | awk '/Zen/ && /Picture-in-Picture/ {print $1}')
+          # Get current workspace
+          current_workspace=$(${pkgs.aerospace}/bin/aerospace list-workspaces --focused)
+          echo "Current workspace: $current_workspace"
 
-          echo "Found PiP Window ID: '$PIP_WIN_ID'"
-          echo "Target Workspace (from env var): '$AEROSPACE_FOCUSED_WORKSPACE'"
+          # List all windows for debugging
+          echo "All windows:"
+          ${pkgs.aerospace}/bin/aerospace list-windows --all
 
-          # Check that BOTH the window ID and the workspace name are non-empty
-          if [[ -n "$PIP_WIN_ID" && -n "$AEROSPACE_FOCUSED_WORKSPACE" ]]; then
-            echo "Executing: aerospace move-node-to-workspace '$AEROSPACE_FOCUSED_WORKSPACE' --window-id '$PIP_WIN_ID'"
-            # Execute the actual command
-            aerospace move-node-to-workspace "$AEROSPACE_FOCUSED_WORKSPACE" --window-id "$PIP_WIN_ID"
-            echo "Command finished."
-          else
-            echo "Skipping move: Either PiP window not found or workspace variable is empty."
-          fi
+          # Move PiP windows to current workspace (handles both "Picture-in-Picture" and "Picture in Picture")
+          ${pkgs.aerospace}/bin/aerospace list-windows --all | grep -E "(Picture-in-Picture|Picture in Picture)" | awk '{print $1}' | while read window_id; do
+              if [ -n "$window_id" ]; then
+                  echo "Moving window $window_id to workspace $current_workspace"
+                  ${pkgs.aerospace}/bin/aerospace move-node-to-workspace --window-id "$window_id" "$current_workspace"
+              fi
+          done
+
+          echo "Script finished"
         '';
       in {
       on-window-detected = [
@@ -39,6 +39,8 @@
         }
       ];
       exec-on-workspace-change = [
+        "/bin/bash"
+        "-c"
         "${sticky-pip-script}/bin/sticky-pip"
       ];
     };
