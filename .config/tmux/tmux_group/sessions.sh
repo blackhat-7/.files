@@ -48,10 +48,10 @@ fi
 
 # Main session with EP, ET, EA windows
 if ! tmux has-session -t Main 2>/dev/null; then
-    create_session "Main" "editing_preprocesser" "editing; cd Editing-Preprocesser/"
-    add_window "Main" "editing_trainer" "editing; cd Editing-Trainer"
-    add_window "Main" "aftershoot-cloud" "editing; cd aftershoot-cloud"
-    add_window "Main" "infra" "editing; cd infra"
+    create_session "Main" "aftershoot-cloud" "editing; cd aftershoot-cloud"
+    add_window "Main" "editing-preprocesser" "editing; cd Editing-Preprocesser"
+    add_window "Main" "editing-scripts" "editing; cd Editing-Scripts"
+    add_window "Main" "editing-trainer" "editing; cd editing-trainer"
     add_window "Main" "editing-ml" "editing; cd editing-ml"
 fi
 
