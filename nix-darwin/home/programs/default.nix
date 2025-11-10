@@ -5,6 +5,7 @@
     ./tmux.nix
     ./fish.nix
     ./starship.nix
+    ./aerospace.nix
     inputs.nix-index-database.homeModules.nix-index
   ];
 
