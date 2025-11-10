@@ -4,45 +4,20 @@
     userSettings =
       let
         sticky-pip-script = pkgs.writeShellScriptBin "sticky-pip" ''
-          #!${pkgs.bash}/bin/bash
-
-          # Debug log
-          exec &>> /tmp/aerospace-pip-debug.log
-          echo "--- $(date): Script Triggered ---"
-
-          # Get current workspace
           current_workspace=$(${pkgs.aerospace}/bin/aerospace list-workspaces --focused)
-          echo "Current workspace: $current_workspace"
-
-          # List all windows for debugging
-          echo "All windows:"
-          ${pkgs.aerospace}/bin/aerospace list-windows --all
-
-          # Move PiP windows to current workspace (handles both "Picture-in-Picture" and "Picture in Picture")
           ${pkgs.aerospace}/bin/aerospace list-windows --all | grep -E "(Picture-in-Picture|Picture in Picture)" | awk '{print $1}' | while read window_id; do
-              if [ -n "$window_id" ]; then
-                  echo "Moving window $window_id to workspace $current_workspace"
-                  ${pkgs.aerospace}/bin/aerospace move-node-to-workspace --window-id "$window_id" "$current_workspace"
-              fi
+            [ -n "$window_id" ] && ${pkgs.aerospace}/bin/aerospace move-node-to-workspace --window-id "$window_id" "$current_workspace"
           done
-
-          echo "Script finished"
         '';
       in {
-      on-window-detected = [
-        {
-          "if" = {
-            app-name-regex-substring = "Zen"; # This is the corrected key
-            window-title-regex-substring = "Picture-in-Picture";
-          };
-          run = "layout floating";
-        }
-      ];
-      exec-on-workspace-change = [
-        "/bin/bash"
-        "-c"
-        "${sticky-pip-script}/bin/sticky-pip"
-      ];
+      on-window-detected = [{
+        "if" = {
+          app-name-regex-substring = "Zen";
+          window-title-regex-substring = "Picture-in-Picture";
+        };
+        run = "layout floating";
+      }];
+      exec-on-workspace-change = [ "/bin/bash" "-c" "${sticky-pip-script}/bin/sticky-pip" ];
     };
     extraConfig = ''
     [mode.main.binding]
