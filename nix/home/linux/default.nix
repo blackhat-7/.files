@@ -14,6 +14,8 @@
     discord
     just
     jdk21
+    github-copilot-cli
+    gemini-cli
   ];
 
   # Enable the generic Linux target

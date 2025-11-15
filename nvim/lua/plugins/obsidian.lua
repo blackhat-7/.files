@@ -1,9 +1,10 @@
+local notes_path = vim.fn.expand("~/Documents/Notes")
 require("obsidian").setup({
   ui = { enable = true },
   workspaces = {
     {
       name = "Notes",
-      path = "/Users/illusion/Documents/Notes",
+      path = notes_path,
     },
   },
   completion = {

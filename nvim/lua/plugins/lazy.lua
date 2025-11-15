@@ -16,7 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 -- load gemini api key
-local file = io.open("/Users/illusion/Documents/Creds/gemini.txt", "r")
+local gemini_path = vim.fn.expand("~/Documents/Creds/gemini.txt")
+local file = io.open(gemini_path, "r")
 if file then
   local gemini_api_key = file:read("*all")
   file:close()
@@ -243,7 +244,7 @@ require('lazy').setup({
   'ThePrimeagen/git-worktree.nvim',
   'tpope/vim-surround',
   'xiyaowong/nvim-transparent',
-  { 
+  {
     'numToStr/FTerm.nvim',
     config = function()
       local map = vim.api.nvim_set_keymap
@@ -281,7 +282,7 @@ require('lazy').setup({
         force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
         bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
         stack_floating_preview_windows = true, -- Whether to nest floating windows
-        preview_window_title = { enable = true, position = "left" }, -- Whether 
+        preview_window_title = { enable = true, position = "left" }, -- Whether
       }
     end
   },
@@ -319,7 +320,7 @@ require('lazy').setup({
         enabled = false,
       })
     end
-  },   
+  },
 
   {
     "folke/noice.nvim",
@@ -405,7 +406,7 @@ require('lazy').setup({
   'navarasu/onedark.nvim', -- Theme inspired by Atom
   'nvim-lualine/lualine.nvim', -- Fancier statusline
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines 
+  'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' }},
@@ -533,10 +534,10 @@ require('lazy').setup({
   { "EdenEast/nightfox.nvim" },
   { 'loctvl842/monokai-pro.nvim' },
   { "adrian5/oceanic-next-vim"},
-  { 
+  {
     "phha/zenburn.nvim",
-    config = function() 
-      require("zenburn").setup() 
+    config = function()
+      require("zenburn").setup()
     end
   },
   {"neanias/everforest-nvim"},
@@ -565,7 +566,7 @@ require('lazy').setup({
   },
   { 'RRethy/nvim-base16' },
   { 'gambhirsharma/vesper.nvim' },
-  { 
+  {
     'baliestri/aura-theme',
     lazy = false,
     priority = 1000,
@@ -582,5 +583,3 @@ require('lazy').setup({
   --   }
   -- }
 )
-
-
