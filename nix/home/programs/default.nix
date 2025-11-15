@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, lib, ... }: {
 
   imports = [
     ./kitty.nix
@@ -36,4 +36,17 @@
       enableFishIntegration = true;
     };
   };
+
+  home.activation.install-uv-tools = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    # A list of Python packages to install with 'uv tool install'
+    tools="
+      basedpyright
+      ruff
+    "
+    # Install each tool
+    for tool in $tools; do
+      echo "Installing $tool with uv..."
+      ${pkgs.uv}/bin/uv tool install $tool
+    done
+  '';
 }
