@@ -208,7 +208,8 @@ export AIDER_MODEL="hf:Qwen/Qwen2.5-Coder-32B-Instruct"
 export OPENAI_API_KEY=$(cat $HOME/Documents/Creds/owui.txt)
 export GEMINI_API_KEY=$(cat $HOME/Documents/Creds/gemini.txt)
 export OLLAMA_HOST="0.0.0.0"
-export SEARXNG_API_URL="http://raspberrypi:8081"
+# export SEARXNG_API_URL="http://raspberrypi:8081"
+export SEARXNG_API_URL="http://135.181.228.158:9000"
 export OPENROUTER_API_KEY=$(cat $HOME/Documents/Creds/openrouter.txt)
 
 direnv hook fish | source

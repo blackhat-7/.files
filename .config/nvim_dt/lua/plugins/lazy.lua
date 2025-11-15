@@ -27,114 +27,194 @@ else
 end
 
 require('lazy').setup({
-  {
-    "supermaven-inc/supermaven-nvim",
-    config = function()
-      require("supermaven-nvim").setup({
-        keymaps = {
-          accept_suggestion = "<M-tab>",
-          clear_suggestion = "<M-c>",
-          accept_word = "<C-j>",
-        },
-        ignore_filetypes = { env = true }, -- or { "cpp", }
-        color = {
-          suggestion_color = "#ff0000",
-          cterm = 244,
-        },
-        log_level = "info", -- set to "off" to disable logging completely
-        disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false, -- disables built in keymaps for more manual control
-        condition = function()
-          return false
-        end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
-      })
-    end,
-  },
+  -- {
+  --   "supermaven-inc/supermaven-nvim",
+  --   config = function()
+  --     require("supermaven-nvim").setup({
+  --       keymaps = {
+  --         accept_suggestion = "<M-tab>",
+  --         clear_suggestion = "<M-c>",
+  --         accept_word = "<C-j>",
+  --       },
+  --       ignore_filetypes = { env = true }, -- or { "cpp", }
+  --       color = {
+  --         suggestion_color = "#ff0000",
+  --         cterm = 244,
+  --       },
+  --       log_level = "info", -- set to "off" to disable logging completely
+  --       disable_inline_completion = false, -- disables inline completion for use with cmp
+  --       disable_keymaps = false, -- disables built in keymaps for more manual control
+  --       condition = function()
+  --         return false
+  --       end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+  --     })
+  --   end,
+  -- },
   'onsails/lspkind.nvim',
   'folke/zen-mode.nvim',
   {
-  "yetone/avante.nvim",
-  event = "VeryLazy",
-  version = false, -- Never set this value to "*"! Never!
-  opts = {
-    -- add any opts here
-    -- for example
-    provider = "copilot",
-    providers = {
-      copilot = {
-        model = "o4-mini",
-        timeout = 30000
-      },
-      openrouter = {
-        __inherited_from = 'openai',
-        endpoint = 'https://openrouter.ai/api/v1',
-        api_key_name = 'OPENROUTER_API_KEY',
-        model = 'deepseek/deepseek-r1:free',
-      },
-      openai = {
-        endpoint = "http://100.95.18.138:42069/v1",
-        model = "openai/gpt-oss-20b", -- your desired model (or use gpt-4o, etc.)
-        api_key_name = "OPENAI_API_KEY",
-        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      },
-      gemini = {
-        model = "gemini-2.5-pro",
-        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      },
-    },
-    web_search_engine = {
-      provider = "searxng",
-      providers = {
-        searxng = {
-          api_url_name = "SEARXNG_API_URL",
-          extra_request_body = {
-            format = "json",
-          },
+    "folke/sidekick.nvim",
+    lazy = false,
+    opts = {
+      cli = {
+        mux = {
+          backend = "tmux",
+          enabled = false,
         },
       },
     },
+    keys = {
+      {
+        "<tab>",
+        function()
+          -- if there is a next edit, jump to it, otherwise apply it if any
+          if not require("sidekick").nes_jump_or_apply() then
+            return "<Tab>" -- fallback to normal tab
+          end
+        end,
+        expr = true,
+        desc = "Goto/Apply Next Edit Suggestion",
+      },
+      {
+        "<c-.>",
+        function() require("sidekick.cli").toggle() end,
+        desc = "Sidekick Toggle",
+        mode = { "n", "t", "i", "x" },
+      },
+      {
+        "<space>aa",
+        function() require("sidekick.cli").toggle() end,
+        desc = "Sidekick Toggle CLI",
+      },
+      {
+        "<leader>as",
+        function() require("sidekick.cli").select() end,
+        -- Or to select only installed tools:
+        -- require("sidekick.cli").select({ filter = { installed = true } })
+        desc = "Select CLI",
+      },
+      {
+        "<leader>ad",
+        function() require("sidekick.cli").close() end,
+        desc = "Detach a CLI Session",
+      },
+      {
+        "<leader>at",
+        function() require("sidekick.cli").send({ msg = "{this}" }) end,
+        mode = { "x", "n" },
+        desc = "Send This",
+      },
+      {
+        "<leader>af",
+        function() require("sidekick.cli").send({ msg = "{file}" }) end,
+        desc = "Send File",
+      },
+      {
+        "<leader>av",
+        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+        mode = { "x" },
+        desc = "Send Visual Selection",
+      },
+      {
+        "<leader>ap",
+        function() require("sidekick.cli").prompt() end,
+        mode = { "n", "x" },
+        desc = "Sidekick Select Prompt",
+      },
+      -- Example of a keybinding to open Copilot directly
+      {
+        "<space>ac",
+        function() require("sidekick.cli").toggle({ name = "copilot", focus = true }) end,
+        desc = "Sidekick Toggle Copilot",
+      },
+    },
   },
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  build = "make",
-  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    "stevearc/dressing.nvim",
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-    --- The below dependencies are optional,
-    "echasnovski/mini.pick", -- for file_selector provider mini.pick
-    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-    "ibhagwan/fzf-lua", -- for file_selector provider fzf
-    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    -- {
-    --   -- support for image pasting
-    --   "HakonHarnes/img-clip.nvim",
-    --   event = "VeryLazy",
-    --   opts = {
-    --     -- recommended settings
-    --     default = {
-    --       embed_image_as_base64 = false,
-    --       prompt_for_file_name = false,
-    --       drag_and_drop = {
-    --         insert_mode = true,
-    --       },
-    --       -- required for Windows users
-    --       use_absolute_path = true,
-    --     },
-    --   },
-    -- },
-    -- {
-    --   -- Make sure to set this up properly if you have lazy=true
-    --   'MeanderingProgrammer/render-markdown.nvim',
-    --   opts = {
-    --     file_types = { "markdown", "Avante" },
-    --   },
-    --   ft = { "markdown", "Avante" },
-    -- },
-  },
- },
+ --  {
+ --  "yetone/avante.nvim",
+ --  event = "VeryLazy",
+ --  version = false, -- Never set this value to "*"! Never!
+ --  opts = {
+ --    -- add any opts here
+ --    -- for example
+ --    provider = "copilot",
+ --    providers = {
+ --      copilot = {
+ --        model = "gpt-4.1",
+ --        timeout = 30000
+ --      },
+ --      openrouter = {
+ --        __inherited_from = 'openai',
+ --        endpoint = 'https://openrouter.ai/api/v1',
+ --        api_key_name = 'OPENROUTER_API_KEY',
+ --        model = 'deepseek/deepseek-r1:free',
+ --      },
+ --      openai = {
+ --        endpoint = "http://100.95.18.138:42069/v1",
+ --        model = "openai/gpt-oss-20b", -- your desired model (or use gpt-4o, etc.)
+ --        api_key_name = "OPENAI_API_KEY",
+ --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+ --      },
+ --      gemini = {
+ --        model = "gemini-2.5-pro",
+ --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+ --      },
+ --    },
+ --    web_search_engine = {
+ --      provider = "searxng",
+ --      providers = {
+ --        searxng = {
+ --          api_url_name = "SEARXNG_API_URL",
+ --          extra_request_body = {
+ --            format = "json",
+ --          },
+ --        },
+ --      },
+ --    },
+ --    behaviour = {
+ --      auto_approve_tool_permissions = false,
+ --    }
+ --  },
+ --  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+ --  build = "make",
+ --  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+ --  dependencies = {
+ --    "nvim-treesitter/nvim-treesitter",
+ --    "stevearc/dressing.nvim",
+ --    "nvim-lua/plenary.nvim",
+ --    "MunifTanjim/nui.nvim",
+ --    --- The below dependencies are optional,
+ --    "echasnovski/mini.pick", -- for file_selector provider mini.pick
+ --    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+ --    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+ --    "ibhagwan/fzf-lua", -- for file_selector provider fzf
+ --    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+ --    -- {
+ --    --   -- support for image pasting
+ --    --   "HakonHarnes/img-clip.nvim",
+ --    --   event = "VeryLazy",
+ --    --   opts = {
+ --    --     -- recommended settings
+ --    --     default = {
+ --    --       embed_image_as_base64 = false,
+ --    --       prompt_for_file_name = false,
+ --    --       drag_and_drop = {
+ --    --         insert_mode = true,
+ --    --       },
+ --    --       -- required for Windows users
+ --    --       use_absolute_path = true,
+ --    --     },
+ --    --   },
+ --    -- },
+ --    -- {
+ --    --   -- Make sure to set this up properly if you have lazy=true
+ --    --   'MeanderingProgrammer/render-markdown.nvim',
+ --    --   opts = {
+ --    --     file_types = { "markdown", "Avante" },
+ --    --   },
+ --    --   ft = { "markdown", "Avante" },
+ --    -- },
+ --  },
+ -- },
   {
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",
