@@ -35,6 +35,9 @@
       enable = true;
       enableFishIntegration = true;
     };
+    hyprpanel.enable = true;
+    yazi.enable = true;
+    feh.enable = true;
   };
 
   home.activation.install-uv-tools = lib.hm.dag.entryAfter ["writeBoundary"] ''

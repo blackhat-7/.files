@@ -52,7 +52,7 @@
         # Added by system-manager
         LANG=en_US.UTF-8
         LC_ALL=en_US.UTF-8
-        TZ=UTC
+        TZ=Asia/Kolkata
         # Add other environment variables here
       '';
     };

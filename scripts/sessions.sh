@@ -74,7 +74,7 @@ fi
 
 # Hobby session with rc window
 if ! tmux has-session -t Hobby 2>/dev/null; then
-    create_session "Hobby" "RandomCodes" "rc"
+    create_session "Hobby" "Projects" "cd ~/Documents/projects"
 fi
 
 # Sessions and daemons

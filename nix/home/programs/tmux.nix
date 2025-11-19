@@ -52,12 +52,12 @@
                 set -g @fzf_pane_switch_bind-key "C-f"
             '';
         }
-        # {
-        #     plugin = tmuxPlugins.tmux-floax;
-        #     extraConfig = ''
-        #         set -g @floax-bind 'C-e'
-        #     '';
-        # }
+        {
+            plugin = tmuxPlugins.tmux-floax;
+            extraConfig = ''
+                set -g @floax-bind 'C-e'
+            '';
+        }
     ];
 
     extraConfig = ''

@@ -11,12 +11,19 @@
       google-cloud-sdk.components.gke-gcloud-auth-plugin
     ])
     docker
-    discord
     just
     jdk21
     github-copilot-cli
     gemini-cli
+    dbeaver-bin
+    google-cloud-sql-proxy
+    geeqie
+    discord
   ];
+
+  home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD sudo ${pkgs.libcap}/bin/setcap 'CAP_SYS_RESOURCE=+ep' ${pkgs.noisetorch}/bin/noisetorch || true
+  '';
 
   # Enable the generic Linux target
   targets.genericLinux.enable = true;

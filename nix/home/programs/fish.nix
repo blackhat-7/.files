@@ -45,8 +45,9 @@ alias fishrc="nv ~/.config/fish/config.fish"
 alias source_fishrc="source ~/.config/fish/config.fish"
 alias ls="lsd"
 alias l="ls"
-alias snp="/Users/illusion/Documents/randomCodes/snippets/snippets.sh"
-alias aseprite="/Users/illusion/Documents/Hobby/source/aseprite/build/bin/aseprite"
+alias geeqie="geeqie --disable-clutter"
+
+
 # Use yazi from system path or homebrew path if available
 if type -q yazi
     alias fe="yazi"
@@ -75,15 +76,10 @@ end
 
 # Tmux envs
 # Platform-specific paths
-if test (uname) = "Darwin"
-    alias sessions="/Users/illusion/dotfiles/.config/tmux/tmux_group/sessions.sh"
-    alias long_training_jobs="/Users/illusion/Documents/Work/Editing/DebugHelpers/long_training/long_training_jobs"
-    alias gcp_stage="source /Users/illusion/Documents/Work/Creds/gcp_stage.sh"
-    alias gcp_prod="source /Users/illusion/Documents/Work/Creds/gcp_prod.sh"
-else
-    # Linux paths (adjust as needed)
-    test -f ~/dotfiles/.config/tmux/tmux_group/sessions.sh; and alias sessions="~/dotfiles/.config/tmux/tmux_group/sessions.sh"
-end
+alias sessions="~/dotfiles/scripts/sessions.sh"
+alias long_training_jobs="/Users/illusion/Documents/Work/Editing/DebugHelpers/long_training/long_training_jobs"
+alias gcp_stage="source /Users/illusion/Documents/Work/Creds/gcp_stage.sh"
+alias gcp_prod="source /Users/illusion/Documents/Work/Creds/gcp_prod.sh"
 
 starship init fish | source
 
