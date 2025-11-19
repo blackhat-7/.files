@@ -4,7 +4,7 @@
 
   inputs = {
     # The source for all packages
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/91c9a64ce2a84e648d0cf9671274bb9c2fb9ba60";
 
     # The tool that manages macOS
     nix-darwin.url = "github:LnL7/nix-darwin";

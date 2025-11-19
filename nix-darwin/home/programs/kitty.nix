@@ -1,7 +1,7 @@
 { pkgs, ...}: {
   programs.kitty = {
     enable = true;
-    themeFile = "Gruvbox-Dark";
+    themeFile = "Catppuccin-Mocha";
     extraConfig = ''
       hide_window_decorations      titlebar-only
       cursor_trail 3

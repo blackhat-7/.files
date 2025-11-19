@@ -63,7 +63,6 @@
     extraConfig = ''
       set-option -g default-shell "/run/current-system/sw/bin/fish"
       set -g default-command "/run/current-system/sw/bin/fish -l"
-      set -g default-terminal "tmux-256color"
 
       # tmux scroll speed
       bind-key -T copy-mode-vi WheelUpPane send -N1 -X scroll-up
