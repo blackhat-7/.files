@@ -15,7 +15,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export TERM="xterm-256color"
 
 # GCP
 # export PROD_GCP_KEY="/Users/illusion/Documents/Work/Creds/edits_service_account_creds.json"
@@ -64,7 +63,7 @@ alias nvrc="cd ~/.config/nvim && nv"
 alias minecraft="sudo java -jar ~/Documents/Games/minecraft/TLauncher-2.885.jar"
 
 # Tmux envs
-alias sessions="/Users/illusion/dotfiles/.config/tmux/tmux_group/sessions.sh"
+alias sessions="~/dotfiles/scripts/sessions.sh"
 alias long_training_jobs="/Users/illusion/Documents/Work/Editing/DebugHelpers/long_training/long_training_jobs"
 alias gcp_stage="source /Users/illusion/Documents/Work/Creds/gcp_stage.sh"
 alias gcp_prod="source /Users/illusion/Documents/Work/Creds/gcp_prod.sh"
