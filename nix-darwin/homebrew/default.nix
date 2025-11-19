@@ -8,6 +8,7 @@
       "linear-linear"
       "chromium"
       "tigervnc-viewer"
+      "krisp"
     ];
   };
 }

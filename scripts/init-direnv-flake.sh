@@ -28,7 +28,12 @@ cat > flake.nix << 'EOF'
         devShells.default = pkgs.mkShell {
           # Add your desired packages here
           buildInputs = with pkgs; [
-            cowsay
+            pkgs.python311
+            (pkgs.python311.withPackages (ps: with ps; [
+              pip
+              pandas
+              numpy
+            ]))
           ];
 
           # Set your environment variables here
