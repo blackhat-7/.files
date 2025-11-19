@@ -15,6 +15,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export TERM="xterm-256color"
 
 # GCP
 # export PROD_GCP_KEY="/Users/illusion/Documents/Work/Creds/edits_service_account_creds.json"
