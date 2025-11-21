@@ -19,7 +19,7 @@
     pkgs.terragrunt
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.kubectl pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
     pkgs.golangci-lint
-    pkgs.ollama
+    # pkgs.ollama
     pkgs.nightlight
     pkgs.nodejs_24
     pkgs.spotify
@@ -36,10 +36,25 @@
     pkgs.exempi
     pkgs.sqlc
     pkgs.github-copilot-cli
+    pkgs.p7zip
+    pkgs.vi-mongo
   ];
 
 
-  # Launchd agent for Ollama service
+  launchd.agents.turn-on-night-shift = {
+    # 'enable = true' is conventional for Home Manager modules
+    enable = true;
+
+    # Use 'config' instead of 'serviceConfig'
+    config = {
+      ProgramArguments = [
+        "${pkgs.nightlight}/bin/nightlight"
+        "on"
+      ];
+      RunAtLoad = true;
+    };
+  };
+
   # launchd.agents.ollama = {
   #   enable = true;
   #   config = {
@@ -58,37 +73,4 @@
   #     StandardErrorPath = "/Users/illusion/Library/Logs/ollama.error.log";
   #   };
   # };
-
-  launchd.agents.turn-on-night-shift = {
-    # 'enable = true' is conventional for Home Manager modules
-    enable = true;
-
-    # Use 'config' instead of 'serviceConfig'
-    config = {
-      ProgramArguments = [
-        "${pkgs.nightlight}/bin/nightlight"
-        "on"
-      ];
-      RunAtLoad = true;
-    };
-  };
-
-  launchd.agents.ollama = {
-    enable = true;
-    config = {
-      # Unique label for the Ollama service
-      Label = "com.illusion.ollama";
-      # Command to start the Ollama server
-      ProgramArguments = [
-        "${pkgs.ollama}/bin/ollama"
-        "serve"
-      ];
-      # Start on load and keep alive
-      RunAtLoad = true;
-      KeepAlive = true;
-      # Log standard output and errors
-      StandardOutPath = "/Users/illusion/Library/Logs/ollama.log";
-      StandardErrorPath = "/Users/illusion/Library/Logs/ollama.error.log";
-    };
-  };
 }
