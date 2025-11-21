@@ -9,6 +9,7 @@
       "chromium"
       "tigervnc-viewer"
       "krisp"
+      "wine-stable"
     ];
   };
 }
