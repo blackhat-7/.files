@@ -1,0 +1,14 @@
+{
+  "bar.customModules.storage.paths": [
+    "/"
+  ],
+  "bar.autoHide": "never",
+  "theme.bar.border.width": "0.15em",
+  "theme.font.size": "1.0rem",
+  "bar.customModules.worldclock.tz": [
+    "Asia/Kolkata"
+  ],
+  "menus.clock.weather.location": "Delhi",
+  "menus.clock.time.military": false,
+  "menus.clock.time.hideSeconds": true
+}

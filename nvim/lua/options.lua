@@ -23,7 +23,7 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme "rose-pine"
 
 --vim.cmd()
 vim.opt.clipboard = 'unnamedplus'

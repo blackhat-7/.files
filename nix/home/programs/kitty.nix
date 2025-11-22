@@ -1,14 +1,14 @@
 { pkgs, ...}: {
   programs.kitty = {
     enable = true;
-    themeFile = "Catppuccin-Mocha";
+    themeFile = "rose-pine";
     extraConfig = ''
       shell /usr/bin/fish
       hide_window_decorations      titlebar-only
       cursor_trail 3
 
-      background_opacity 0.8
-      background_blur -5
+      background_opacity 0.5
+      background_blur 5
 
 
       # # BEGIN_KITTY_THEME
