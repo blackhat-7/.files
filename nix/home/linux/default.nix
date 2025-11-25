@@ -19,6 +19,7 @@
     google-cloud-sql-proxy
     geeqie
     discord
+    vi-mongo
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
