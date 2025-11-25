@@ -64,6 +64,8 @@
       set-option -g default-shell "/run/current-system/sw/bin/fish"
       set -g default-command "/run/current-system/sw/bin/fish -l"
 
+      set -g set-clipboard on
+
       # tmux scroll speed
       bind-key -T copy-mode-vi WheelUpPane send -N1 -X scroll-up
       bind-key -T copy-mode-vi WheelDownPane send -N1 -X scroll-down
