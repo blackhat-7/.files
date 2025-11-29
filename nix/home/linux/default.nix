@@ -20,6 +20,7 @@
     geeqie
     discord
     vi-mongo
+    vicinae
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -35,20 +36,11 @@
     # Configure XDG directories if needed
   };
 
-  # Optional: Configure systemd user services if needed
   systemd.user = {
-    # Example of a systemd user service (uncomment and customize as needed)
-    # services.example-service = {
-    #   Unit = {
-    #     Description = "Example User Service";
-    #   };
-    #   Service = {
-    #     ExecStart = "${pkgs.hello}/bin/hello";
-    #     Restart = "on-failure";
-    #   };
-    #   Install = {
-    #     WantedBy = [ "default.target" ];
-    #   };
-    # };
+    services.vicinae = {
+      Unit = { Description = "Vicinae Launcher Server"; };
+      Service = { ExecStart = "${pkgs.vicinae}/bin/vicinae server"; };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+    };
   };
 }
