@@ -66,13 +66,13 @@
 
       set -g set-clipboard on
 
-      # tmux scroll speed
-      bind-key -T copy-mode-vi WheelUpPane send -N1 -X scroll-up
-      bind-key -T copy-mode-vi WheelDownPane send -N1 -X scroll-down
+      # Increase scroll speed to 5 lines per wheel notch in vi copy mode
+      bind-key -T copy-mode-vi WheelUpPane send-keys -X -N 5 scroll-up
+      bind-key -T copy-mode-vi WheelDownPane send-keys -X -N 5 scroll-down
 
-      # Mouse scroll
-      bind -Tcopy-mode WheelUpPane send -N1 -X scroll-up
-      bind -Tcopy-mode WheelDownPane send -N1 -X scroll-down
+      # Optional: Also set for emacs copy mode if you use it (the default)
+      bind-key -T copy-mode WheelUpPane send-keys -X -N 5 scroll-up
+      bind-key -T copy-mode WheelDownPane send-keys -X -N 5 scroll-down
 
       # New pane opens in cwd
       bind '"' split-window -v -c "#{pane_current_path}"
