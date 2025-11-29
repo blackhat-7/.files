@@ -38,6 +38,9 @@
     pkgs.github-copilot-cli
     pkgs.p7zip
     pkgs.vi-mongo
+    pkgs.tabiew
+    pkgs.just
+    pkgs.lazysql
   ];
 
 
