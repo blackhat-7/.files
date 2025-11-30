@@ -67,17 +67,31 @@
   };
 
   # Configure OpenSSH via systemd service
-  systemd.services.openssh = {
-    enable = true;
-    description = "OpenSSH server";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+  systemd.services = {
+    openssh = {
+      enable = true;
+      description = "OpenSSH server";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-    serviceConfig = {
-      ExecStart = "${pkgs.openssh}/bin/sshd -D -f /etc/ssh/sshd_config";
-      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-      KillMode = "process";
-      Restart = "always";
+      serviceConfig = {
+        ExecStart = "${pkgs.openssh}/bin/sshd -D -f /etc/ssh/sshd_config";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        KillMode = "process";
+        Restart = "always";
+      };
+    };
+    wakeOnLan = {
+      enable = true;
+      description = "Wake on lan";
+      requires = [ "network.target" ];
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        ExecStart = "${pkgs.ethtool}/bin/ethtool -s enp5s0 wol g";
+        Type = "oneshot";
+      };
     };
   };
 

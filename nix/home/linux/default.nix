@@ -21,6 +21,7 @@
     discord
     vi-mongo
     vicinae
+    wl-clipboard
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -36,11 +37,19 @@
     # Configure XDG directories if needed
   };
 
-  systemd.user = {
-    services.vicinae = {
-      Unit = { Description = "Vicinae Launcher Server"; };
-      Service = { ExecStart = "${pkgs.vicinae}/bin/vicinae server"; };
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+  systemd.user.services.vicinae = {
+    Unit = {
+      Description = "Vicinae Launcher Server";
+      After = [ "default.target" ];
     };
+
+    Service = {
+      ExecStart = "${pkgs.vicinae}/bin/vicinae server";
+      Restart = "on-failure";
+      RestartSec = "1s";
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
   };
+  wayland.windowManager.hyprland.systemd.enable = true;
 }
