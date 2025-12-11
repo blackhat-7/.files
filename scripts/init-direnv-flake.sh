@@ -30,9 +30,7 @@ cat > flake.nix << 'EOF'
           buildInputs = with pkgs; [
             pkgs.python311
             (pkgs.python311.withPackages (ps: with ps; [
-              pip
-              pandas
-              numpy
+              # Packges here
             ]))
           ];
 
