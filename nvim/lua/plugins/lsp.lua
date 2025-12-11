@@ -51,7 +51,7 @@ local on_attach = function(client, bufnr)
   --     vim.lsp.buf.formatting()
   --   end
   -- end, { desc = 'Format current buffer with LSP' })
-  client.server_capabilities.documentFormattingProvider = false
+  -- client.server_capabilities.documentFormattingProvider = false
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>fm", "<cmd>lua vim.lsp.buf.format()<CR>", {})
 
   -- FIXME: [gopls]: Error SERVER_REQUEST_HANDLER_ERROR

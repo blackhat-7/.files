@@ -10,6 +10,7 @@
       "tigervnc-viewer"
       "krisp"
       "wine-stable"
+      "beekeeper-studio"
     ];
   };
 }

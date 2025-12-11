@@ -46,7 +46,7 @@
     pkgs.tabiew
     pkgs.just
     pkgs.lazysql
-    pkgs.tableplus
+    pkgs.packer
   ];
 
 
