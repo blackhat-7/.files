@@ -38,6 +38,7 @@
           "9" = 1;
           "0" = 2;
         };
+        on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
       }
       // builtins.fromTOML ''
             [mode.main.binding]
