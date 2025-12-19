@@ -26,6 +26,18 @@
           "-c"
           "${sticky-pip-script}/bin/sticky-pip"
         ];
+        workspace-to-monitor-force-assignment = {
+          "1" = 1;
+          "2" = 1;
+          "3" = 1;
+          "4" = 1;
+          "5" = 1;
+          "6" = 1;
+          "7" = 1;
+          "8" = 1;
+          "9" = 1;
+          "0" = 2;
+        };
       }
       // builtins.fromTOML ''
             [mode.main.binding]
@@ -59,6 +71,7 @@
             cmd-7 = 'workspace 7'
             cmd-8 = 'workspace 8'
             cmd-9 = 'workspace 9'
+            cmd-0 = 'workspace 0'
             # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
             # alt-b = 'workspace B'
             # alt-c = 'workspace C'
@@ -92,6 +105,7 @@
             cmd-shift-7 = 'move-node-to-workspace 7'
             cmd-shift-8 = 'move-node-to-workspace 8'
             cmd-shift-9 = 'move-node-to-workspace 9'
+            cmd-shift-0 = 'move-node-to-workspace 0'
             # alt-shift-a = 'move-node-to-workspace A'
             # alt-shift-b = 'move-node-to-workspace B'
             # alt-shift-c = 'move-node-to-workspace C'
