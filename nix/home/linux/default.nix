@@ -22,6 +22,7 @@
     vi-mongo
     vicinae
     wl-clipboard
+    mongodb-compass
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''

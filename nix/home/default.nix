@@ -15,8 +15,8 @@
     tailscale
     python311
     python311Packages.pip
-    opentofu
-    terragrunt
+    # opentofu
+    # terragrunt
     golangci-lint
     nodejs_24
     gopls
