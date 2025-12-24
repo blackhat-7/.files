@@ -16,7 +16,7 @@
     pkgs.python311
     pkgs.python311Packages.pip
     pkgs.opentofu
-    pkgs.terragrunt
+    # pkgs.terragrunt
     (pkgs.google-cloud-sdk.withExtraComponents [pkgs.google-cloud-sdk.components.kubectl pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin])
     pkgs.golangci-lint
     # pkgs.ollama
