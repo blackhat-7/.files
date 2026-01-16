@@ -3,7 +3,7 @@ vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
-vim.o.relativenumber = true
+vim.o.relativenumber = false
 
 -- Disable mouse mode
 vim.o.mouse = ''
@@ -23,7 +23,7 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.cmd.colorscheme "rose-pine"
+vim.cmd.colorscheme "vesper"
 
 --vim.cmd()
 vim.opt.clipboard = 'unnamedplus'

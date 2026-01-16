@@ -423,9 +423,8 @@ require('lazy').setup({
     config = true
   },
 
-  'navarasu/onedark.nvim', -- Theme inspired by Atom
   'nvim-lualine/lualine.nvim', -- Fancier statusline
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
@@ -521,6 +520,13 @@ require('lazy').setup({
 
   -- Note taking
   {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+
+    -- Completion for `blink.cmp`
+    -- dependencies = { "saghen/blink.cmp" },
+},
+  {
     "epwalsh/obsidian.nvim",
     -- branch = "main",
     -- version = "*",  -- recommended, use latest release instead of latest commit
@@ -595,7 +601,7 @@ require('lazy').setup({
       vim.cmd([[colorscheme aura-dark]])
     end
   },
-  { 'kooparse/vim-color-desert-night'}
+  { 'kooparse/vim-color-desert-night'},
 }
   -- {
   --   defaults = {

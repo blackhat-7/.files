@@ -10,7 +10,8 @@
       "tigervnc-viewer"
       "krisp"
       "wine-stable"
-      "beekeeper-studio"
+      "opencode-desktop"
+      "whisky"
     ];
   };
 }
