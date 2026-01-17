@@ -18,7 +18,7 @@
     dbeaver-bin
     google-cloud-sql-proxy
     geeqie
-    # discord
+    discord
     vi-mongo
     vicinae
     wl-clipboard
