@@ -41,20 +41,20 @@
   systemd.user.services.vicinae = {
     Unit = {
       Description = "Vicinae Launcher Server";
-      # Bind to the graphical session so it stops/starts with Hyprland
+      # Keep these so it still cleans up when Hyprland closes
       PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
     };
 
     Service = {
       ExecStart = "${pkgs.vicinae}/bin/vicinae server";
       Restart = "on-failure";
-      RestartSec = "3s"; # Give it a bit more breathing room
+      RestartSec = "3s";
     };
 
     Install = { 
-      # This is the key change
-      WantedBy = [ "graphical-session.target" ]; 
+      # Use default.target instead of graphical-session.target
+      # This ensures it starts as soon as you log in
+      WantedBy = [ "default.target" ]; 
     };
   };
   wayland.windowManager.hyprland.systemd.enable = true;
