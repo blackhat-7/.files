@@ -22,12 +22,13 @@
     # pkgs.ollama
     pkgs.nightlight
     pkgs.nodejs_24
-    (pkgs.spotify.overrideAttrs (oldAttrs: {
-      src = pkgs.fetchurl {
-        url = "https://web.archive.org/web/20251029235406/https://download.scdn.co/SpotifyARM64.dmg";
-        hash = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
-      };
-    }))
+    pkgs.spotify
+    # (pkgs.spotify.overrideAttrs (oldAttrs: {
+    #   src = pkgs.fetchurl {
+    #     url = "https://web.archive.org/web/20251029235406/https://download.scdn.co/SpotifyARM64.dmg";
+    #     hash = "sha256-0gwoptqLBJBM0qJQ+dGAZdCD6WXzDJEs0BfOxz7f2nQ=";
+    #   };
+    # }))
     pkgs.slack
     pkgs.discord
     pkgs.raycast
@@ -47,6 +48,8 @@
     pkgs.just
     pkgs.lazysql
     pkgs.packer
+    pkgs.webtorrent_desktop
+    pkgs.moonlight-qt
   ];
 
 

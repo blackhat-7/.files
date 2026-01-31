@@ -12,6 +12,7 @@
       "wine-stable"
       "opencode-desktop"
       "whisky"
+      "ollama"
     ];
   };
 }
