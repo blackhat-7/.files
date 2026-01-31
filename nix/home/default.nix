@@ -48,18 +48,6 @@
     };
   };
 
-  # ZSH shell configuration
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;  # Updated to new option name
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-    shellAliases = {
-      ll = lib.mkForce "ls -la";
-      ".." = "cd ..";
-    };
-  };
-
   # Fish shell configuration
   programs.fish = {
     enable = true;
