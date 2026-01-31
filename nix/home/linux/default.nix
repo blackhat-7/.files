@@ -26,7 +26,7 @@
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    $DRY_RUN_CMD sudo ${pkgs.libcap}/bin/setcap 'CAP_SYS_RESOURCE=+ep' ${pkgs.noisetorch}/bin/noisetorch || true
+    /usr/bin/sudo ${pkgs.libcap}/bin/setcap 'CAP_SYS_RESOURCE+ep' "${pkgs.noisetorch}/bin/noisetorch"
   '';
 
   # Enable the generic Linux target
@@ -41,16 +41,21 @@
   systemd.user.services.vicinae = {
     Unit = {
       Description = "Vicinae Launcher Server";
-      After = [ "default.target" ];
+      # Bind to the graphical session so it stops/starts with Hyprland
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
     };
 
     Service = {
       ExecStart = "${pkgs.vicinae}/bin/vicinae server";
       Restart = "on-failure";
-      RestartSec = "1s";
+      RestartSec = "3s"; # Give it a bit more breathing room
     };
 
-    Install = { WantedBy = [ "default.target" ]; };
+    Install = { 
+      # This is the key change
+      WantedBy = [ "graphical-session.target" ]; 
+    };
   };
   wayland.windowManager.hyprland.systemd.enable = true;
 }

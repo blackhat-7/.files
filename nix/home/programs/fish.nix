@@ -56,7 +56,7 @@ if type -q yazi
 else if test -f /opt/homebrew/bin/yazi
     alias fe="/opt/homebrew/bin/yazi"
 end
-alias cat=bat
+# alias cat=bat
 # Cloud SQL aliases (if cloud-sql-proxy is available)
 if type -q cloud-sql-proxy
     alias pdb="cloud-sql-proxy aftershoot-co:us-central1:editing-uploader -p 5434"

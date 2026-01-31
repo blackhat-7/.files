@@ -32,13 +32,24 @@
 
       # Other system utilities
       openssh
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
     ];
 
     # Add shells to /etc/shells
     etc."shells" = {
       enable = true;
-      mode = "append";
       text = ''
+        /usr/bin/bash
+        /bin/bash
+        /bin/sh
+        /usr/bin/git-shell
+        /usr/bin/fish
+        /bin/fish
+        /usr/bin/systemd-home-fallback-shell
+        /bin/rbash
+        /usr/bin/rbash
+        /usr/bin/sh
         ${pkgs.fish}/bin/fish
         ${pkgs.zsh}/bin/zsh
       '';
@@ -47,7 +58,6 @@
     # Set environment variables via /etc/environment
     etc."environment" = {
       enable = true;
-      mode = "append";
       text = ''
         # Added by system-manager
         LANG=en_US.UTF-8
