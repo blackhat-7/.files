@@ -2,6 +2,50 @@
   programs.fish = {
     enable = true;
     generateCompletions = true;
+    functions = {
+        gcm = ''
+          # 1. Stage all changes
+          echo "➕ Staging all changes..."
+          git add -A
+
+          # 2. Check for staged changes
+          set -l diff_output (git diff --cached)
+
+          if test -z "$diff_output"
+              echo "🚫 No changes found to commit."
+              return 1
+          end
+
+          # 3. Inform user
+          echo "🤖 Generating commit message..."
+
+          # 4. Construct the prompt
+          set -l prompt "Your task is to generate a concise and informative commit message based on the provided diff. Use the conventional commit format (type: subject). The message should be in the imperative mood and under 200 chars. Don't include additional text. The diff is:
+          $diff_output"
+
+          # 5. Call aichat
+          set -l ai_msg (echo "$prompt" | aichat)
+
+          # 6. Process the output
+          if test $status -eq 0 -a -n "$ai_msg"
+              # Remove <think>...</think> blocks using regex
+              # We use "" for the empty string replacement
+              set ai_msg (string replace -r -a '(?s)<think>.*?</think>' "" "$ai_msg")
+              
+              # Trim surrounding whitespace
+              set ai_msg (string trim "$ai_msg")
+              
+              # Escape double quotes to ensure the command is valid
+              set -l escaped_msg (string replace -a '"' '\"' "$ai_msg")
+              
+              # Replace 'gcm' with the final git command
+              commandline -r "git commit -m \"$escaped_msg\""
+          else
+              echo "❌ Failed to generate message."
+              return 1
+          end
+        '';
+    };
     shellInit = ''
 if status is-interactive
     # Commands to run in interactive sessions can go here
