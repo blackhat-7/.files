@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   programs.fish = {
     enable = true;
+    generateCompletions = true;
     functions = {
         gcm = ''
           # 1. Stage all changes
