@@ -32,8 +32,6 @@
 
       # Other system utilities
       openssh
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
     ];
 
     # Add shells to /etc/shells
