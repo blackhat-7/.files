@@ -45,6 +45,36 @@
               return 1
           end
         '';
+        gtoken = ''
+            # Configuration
+            set -l api_key "REDACTED"
+            set -l email "newuser03@yopmail.com"
+            
+            # Use provided argument as password, otherwise use default
+            set -l password $argv[1]
+            if test -z "$password"
+                set password "newuser03@yopmail.com"
+            end
+
+            # Execute the request
+            set -l token (curl --silent --request POST \
+                --url "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$api_key" \
+                --header 'content-type: application/json' \
+                --data "{
+                    \"returnSecureToken\": true,
+                    \"email\": \"$email\",
+                    \"password\": \"$password\",
+                    \"clientType\": \"CLIENT_TYPE_WEB\"
+                }" | jq -r '.idToken')
+
+            # Output the token
+            if test "$token" = "null"
+                echo "Error: Failed to retrieve token. Check credentials."
+                return 1
+            else
+                echo $token
+            end
+        '';
     };
     shellInit = ''
 if status is-interactive
