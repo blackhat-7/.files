@@ -50,7 +50,7 @@
   };
 
   nixpkgs.overlays = localOverlays ++ [
-    inputs.neovim-nightly-overlay.overlays.default
+    # inputs.neovim-nightly-overlay.overlays.default
   ];
   
   # caps lock to control
