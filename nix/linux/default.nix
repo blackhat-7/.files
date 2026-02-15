@@ -9,11 +9,14 @@
   nixpkgs.hostPlatform = "x86_64-linux";
 
   # User configuration - only defining the minimum needed for home-manager
-  users.users.illusion = {
-    name = "illusion";
-    home = "/home/illusion";
-    # Don't set isNormalUser, description, or groups as they already exist
-  };
+  # users.users.illusion = {
+  #   name = "illusion";
+  #   home = "/home/illusion";
+  #   isNormalUser = true;
+  #   group = "illusion";
+  # };
+  # users.groups.illusion = {};
+  systemd.services.userborn.enable = false;
 
   # Environment configuration
   environment = {
@@ -40,6 +43,7 @@
       text = ''
         /usr/bin/bash
         /bin/bash
+        /run/system-manager/sw/bin/bash
         /bin/sh
         /usr/bin/git-shell
         /usr/bin/fish

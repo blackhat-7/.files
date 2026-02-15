@@ -23,6 +23,7 @@
     vicinae
     wl-clipboard
     mongodb-compass
+    # signal-desktop
   ];
 
   home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
