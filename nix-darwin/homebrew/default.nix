@@ -13,6 +13,7 @@
       "opencode-desktop"
       "whisky"
       "ollama"
+      "signal"
     ];
   };
 }

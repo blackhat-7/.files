@@ -29,25 +29,30 @@ end
 
 require('lazy').setup({
   {
-    "supermaven-inc/supermaven-nvim",
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
     config = function()
-      require("supermaven-nvim").setup({
-        keymaps = {
-          accept_suggestion = "<M-tab>",
-          clear_suggestion = "<M-c>",
-          accept_word = "<C-j>",
+      require("copilot").setup({
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<M-tab>",
+            accept_word = "<C-j>",
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<M-c>",
+          },
         },
-        ignore_filetypes = { env = true }, -- or { "cpp", }
-        color = {
-          suggestion_color = "#ff0000",
-          cterm = 244,
+        panel = { enabled = false },
+        filetypes = {
+          ["*"] = true
         },
-        log_level = "info", -- set to "off" to disable logging completely
-        disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = false, -- disables built in keymaps for more manual control
-        condition = function()
-          return false
-        end -- condition to check for stopping supermaven, `true` means to stop supermaven when the condition is true.
+        copilot_node_command = 'node',
+        server_opts_overrides = {},
       })
     end,
   },
@@ -131,100 +136,92 @@ require('lazy').setup({
       },
     },
   },
- --  {
- --  "yetone/avante.nvim",
- --  event = "VeryLazy",
- --  version = false, -- Never set this value to "*"! Never!
- --  opts = {
- --    -- add any opts here
- --    -- for example
- --    provider = "copilot",
- --    providers = {
- --      copilot = {
- --        model = "gpt-4.1",
- --        timeout = 30000
- --      },
- --      openrouter = {
- --        __inherited_from = 'openai',
- --        endpoint = 'https://openrouter.ai/api/v1',
- --        api_key_name = 'OPENROUTER_API_KEY',
- --        model = 'deepseek/deepseek-r1:free',
- --      },
- --      openai = {
- --        endpoint = "http://100.95.18.138:42069/v1",
- --        model = "openai/gpt-oss-20b", -- your desired model (or use gpt-4o, etc.)
- --        api_key_name = "OPENAI_API_KEY",
- --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
- --      },
- --      gemini = {
- --        model = "gemini-2.5-pro",
- --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
- --      },
- --    },
- --    web_search_engine = {
- --      provider = "searxng",
- --      providers = {
- --        searxng = {
- --          api_url_name = "SEARXNG_API_URL",
- --          extra_request_body = {
- --            format = "json",
- --          },
- --        },
- --      },
- --    },
- --    behaviour = {
- --      auto_approve_tool_permissions = false,
- --    }
- --  },
- --  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
- --  build = "make",
- --  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
- --  dependencies = {
- --    "nvim-treesitter/nvim-treesitter",
- --    "stevearc/dressing.nvim",
- --    "nvim-lua/plenary.nvim",
- --    "MunifTanjim/nui.nvim",
- --    --- The below dependencies are optional,
- --    "echasnovski/mini.pick", -- for file_selector provider mini.pick
- --    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
- --    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
- --    "ibhagwan/fzf-lua", -- for file_selector provider fzf
- --    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
- --    -- {
- --    --   -- support for image pasting
- --    --   "HakonHarnes/img-clip.nvim",
- --    --   event = "VeryLazy",
- --    --   opts = {
- --    --     -- recommended settings
- --    --     default = {
- --    --       embed_image_as_base64 = false,
- --    --       prompt_for_file_name = false,
- --    --       drag_and_drop = {
- --    --         insert_mode = true,
- --    --       },
- --    --       -- required for Windows users
- --    --       use_absolute_path = true,
- --    --     },
- --    --   },
- --    -- },
- --    -- {
- --    --   -- Make sure to set this up properly if you have lazy=true
- --    --   'MeanderingProgrammer/render-markdown.nvim',
- --    --   opts = {
- --    --     file_types = { "markdown", "Avante" },
- --    --   },
- --    --   ft = { "markdown", "Avante" },
- --    -- },
- --  },
- -- },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({})
-    end,
-  },
+  --  {
+  --  "yetone/avante.nvim",
+  --  event = "VeryLazy",
+  --  version = false, -- Never set this value to "*"! Never!
+  --  opts = {
+  --    -- add any opts here
+  --    -- for example
+  --    provider = "copilot",
+  --    providers = {
+  --      copilot = {
+  --        model = "gpt-4.1",
+  --        timeout = 30000
+  --      },
+  --      openrouter = {
+  --        __inherited_from = 'openai',
+  --        endpoint = 'https://openrouter.ai/api/v1',
+  --        api_key_name = 'OPENROUTER_API_KEY',
+  --        model = 'deepseek/deepseek-r1:free',
+  --      },
+  --      openai = {
+  --        endpoint = "http://100.95.18.138:42069/v1",
+  --        model = "openai/gpt-oss-20b", -- your desired model (or use gpt-4o, etc.)
+  --        api_key_name = "OPENAI_API_KEY",
+  --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+  --      },
+  --      gemini = {
+  --        model = "gemini-2.5-pro",
+  --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+  --      },
+  --    },
+  --    web_search_engine = {
+  --      provider = "searxng",
+  --      providers = {
+  --        searxng = {
+  --          api_url_name = "SEARXNG_API_URL",
+  --          extra_request_body = {
+  --            format = "json",
+  --          },
+  --        },
+  --      },
+  --    },
+  --    behaviour = {
+  --      auto_approve_tool_permissions = false,
+  --    }
+  --  },
+  --  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  --  build = "make",
+  --  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+  --  dependencies = {
+  --    "nvim-treesitter/nvim-treesitter",
+  --    "stevearc/dressing.nvim",
+  --    "nvim-lua/plenary.nvim",
+  --    "MunifTanjim/nui.nvim",
+  --    --- The below dependencies are optional,
+  --    "echasnovski/mini.pick", -- for file_selector provider mini.pick
+  --    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+  --    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+  --    "ibhagwan/fzf-lua", -- for file_selector provider fzf
+  --    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+  --    -- {
+  --    --   -- support for image pasting
+  --    --   "HakonHarnes/img-clip.nvim",
+  --    --   event = "VeryLazy",
+  --    --   opts = {
+  --    --     -- recommended settings
+  --    --     default = {
+  --    --       embed_image_as_base64 = false,
+  --    --       prompt_for_file_name = false,
+  --    --       drag_and_drop = {
+  --    --         insert_mode = true,
+  --    --       },
+  --    --       -- required for Windows users
+  --    --       use_absolute_path = true,
+  --    --     },
+  --    --   },
+  --    -- },
+  --    -- {
+  --    --   -- Make sure to set this up properly if you have lazy=true
+  --    --   'MeanderingProgrammer/render-markdown.nvim',
+  --    --   opts = {
+  --    --     file_types = { "markdown", "Avante" },
+  --    --   },
+  --    --   ft = { "markdown", "Avante" },
+  --    -- },
+  --  },
+  -- },
   -- yank over ssh over tmux over nvim
   { 
     "ojroques/vim-oscyank",
@@ -525,7 +522,7 @@ require('lazy').setup({
 
     -- Completion for `blink.cmp`
     -- dependencies = { "saghen/blink.cmp" },
-},
+  },
   {
     "epwalsh/obsidian.nvim",
     -- branch = "main",
