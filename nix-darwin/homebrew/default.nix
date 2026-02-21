@@ -14,6 +14,7 @@
       "whisky"
       "ollama"
       "signal"
+      "zed"
     ];
   };
 }

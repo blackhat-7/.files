@@ -25,7 +25,7 @@
     fzf.enable = true;
     ripgrep.enable = true;
     neovim.enable = true;
-    zed-editor.enable = true;
+    # zed-editor.enable = true;
     vscode.enable = true;
     gh.enable = true;
     uv.enable = true;
