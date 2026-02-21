@@ -2,11 +2,16 @@
   "$schema": "https://opencode.ai/config.json",
   "permission": {
     "*": "ask",
-    "read": "allow",
+    "websearch": "allow",
     "glob": "allow",
     "grep": "allow",
-    "webfetch": "allow",
-    "exa": "allow"
+    "list": "allow",
+    "lsp": "allow",
+    "read": "allow",
+    "task": "allow",
+    "todoread": "allow",
+    "todowrite": "allow",
+    "webfetch": "allow"
   },
   "provider": {
     "local-llm": {
