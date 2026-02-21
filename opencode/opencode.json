@@ -2,7 +2,11 @@
   "$schema": "https://opencode.ai/config.json",
   "permission": {
     "*": "ask",
-    "webfetch": "allow"
+    "read": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "webfetch": "allow",
+    "exa": "allow"
   },
   "provider": {
     "local-llm": {
@@ -25,6 +29,13 @@
       "type": "local",
       "command": [
         "/Users/illusion/Documents/Work/Editing/aftershoot-cloud/mcp-servers/cloudsql-reader/cloudsql-reader"
+      ],
+      "enabled": true
+    },
+    "mongo-reader": {
+      "type": "local",
+      "command": [
+        "/Users/illusion/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
       ],
       "enabled": true
     }
