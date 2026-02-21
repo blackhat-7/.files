@@ -1,7 +1,0 @@
-[tool.commitizen]
-name = "cz_conventional_commits"
-tag_format = "v$major.$minor.$patch-$prerelease-$devrelease"
-version_scheme = "semver"
-version="1.1.9-a1-dev1"
-path = "pyproject.toml"
-update_changelog_on_bump = true
