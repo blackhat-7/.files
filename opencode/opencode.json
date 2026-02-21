@@ -43,6 +43,13 @@
         "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
       ],
       "enabled": true
+    },
+    "grafana-loki-reader": {
+      "type": "local",
+      "command": [
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/grafana-loki-reader/grafana-loki-reader"
+      ],
+      "enabled": true
     }
   }
 }
