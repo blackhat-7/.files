@@ -1,16 +1,10 @@
-# ~/.config/nix-darwin/flake.nix
 {
-  description = "My Nix-Darwin Flake Configuration";
+  description = "Nix-Darwin Configuration";
 
   inputs = {
-    # The source for all packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    # The tool that manages macOS
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Optional but highly recommended: Home Manager for user-level config
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay = {
@@ -33,23 +27,17 @@
       nix-index-database,
       ...
     }@inputs:
-    # This is the main output that Nix-Darwin will build.
     let
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
         config = { allowUnfree = true; };
       };
-      localOverlays = import ./overlays { inherit (nixpkgs) lib; };
     in
     {
       darwinConfigurations."illusion" = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-
-        # Special arguments passed to your configuration
-        specialArgs = { inherit inputs localOverlays; };
-
+        specialArgs = { inherit inputs; };
         modules = [
-          { nixpkgs.config.allowUnfree = true; }
           ./darwin
           ./homebrew
           home-manager.darwinModules.home-manager {
