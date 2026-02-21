@@ -1,16 +1,7 @@
-# ~/.config/nix-darwin/darwin-configuration.nix
-{
-  config,
-  pkgs,
-  inputs,
-  localOverlays,
-  ...
-}:
+{ config, pkgs, inputs, ... }:
 
 {
-  # This is a mandatory setting. It saves the Nix-Darwin version you are
-  # using, which helps avoid breaking changes when you upgrade.
-  # For a new install, you can start with 4.
+  nix.enable = false;
   system.stateVersion = 4;
   system.primaryUser = "illusion";
   system.defaults = {
@@ -35,35 +26,7 @@
     pkgs.nerd-fonts.fira-code
   ];
 
-  services = {
-    # tailscale.enable = true;
-    # skhd = {
-    #   enable = true;
-    #   skhdConfig = ''
-    #     # Remap Option + H/J/K/L using AppleScript
-    #     alt - h : osascript -e 'tell application "System Events" to key code 123'
-    #     alt - j : osascript -e 'tell application "System Events" to key code 125'
-    #     alt - k : osascript -e 'tell application "System Events" to key code 126'
-    #     alt - l : osascript -e 'tell application "System Events" to key code 124'
-    #   '';
-    # };
-  };
-
-  nixpkgs.overlays = localOverlays ++ [
-    # inputs.neovim-nightly-overlay.overlays.default
-  ];
-  
-  # caps lock to control
-
-  nix.enable = false;
-  # nix.package = pkgs.nix;
-  # nix.gc = {
-  #   automatic = true;
-  #   options = "--delete-older-than 7d";
-  # };
-  # services.nix-daemon.enable = true;
-
-  # Install some command-line packages globally for all users.
+  # Global system packages
   environment.systemPackages = with pkgs; [
     vim
     htop
@@ -77,8 +40,6 @@
     home = "/Users/illusion";
   };
 
-  # Basic user configuration for Home Manager
-  # This is where you configure your own user environment.
   nixpkgs.config.allowUnfree = true;
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
