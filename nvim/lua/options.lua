@@ -22,8 +22,7 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme
-vim.cmd.colorscheme "vesper"
+-- Set colorscheme is handled in lazy.lua
 
 --vim.cmd()
 vim.opt.clipboard = 'unnamedplus'

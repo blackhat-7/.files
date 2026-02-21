@@ -15,18 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 -- Fixes Notify opacity issues
 vim.o.termguicolors = true
 
--- load gemini api key
-local gemini_path = vim.fn.expand("~/Documents/Creds/gemini.txt")
-local file = io.open(gemini_path, "r")
-if file then
-  local gemini_api_key = file:read("*all")
-  file:close()
-else
-  -- File opening failed, handle the error
-  print("Failed to open gemini.txt!")
-  local gemini_api_key = ''
-end
-
 require('lazy').setup({
   {
     "zbirenbaum/copilot.lua",
@@ -96,8 +84,6 @@ require('lazy').setup({
       {
         "<leader>as",
         function() require("sidekick.cli").select() end,
-        -- Or to select only installed tools:
-        -- require("sidekick.cli").select({ filter = { installed = true } })
         desc = "Select CLI",
       },
       {
@@ -128,119 +114,12 @@ require('lazy').setup({
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
       },
-      -- Example of a keybinding to open Copilot directly
       {
         "<space>ac",
         function() require("sidekick.cli").toggle({ name = "copilot", focus = true }) end,
         desc = "Sidekick Toggle Copilot",
       },
     },
-  },
-  --  {
-  --  "yetone/avante.nvim",
-  --  event = "VeryLazy",
-  --  version = false, -- Never set this value to "*"! Never!
-  --  opts = {
-  --    -- add any opts here
-  --    -- for example
-  --    provider = "copilot",
-  --    providers = {
-  --      copilot = {
-  --        model = "gpt-4.1",
-  --        timeout = 30000
-  --      },
-  --      openrouter = {
-  --        __inherited_from = 'openai',
-  --        endpoint = 'https://openrouter.ai/api/v1',
-  --        api_key_name = 'OPENROUTER_API_KEY',
-  --        model = 'deepseek/deepseek-r1:free',
-  --      },
-  --      openai = {
-  --        endpoint = "http://100.95.18.138:42069/v1",
-  --        model = "openai/gpt-oss-20b", -- your desired model (or use gpt-4o, etc.)
-  --        api_key_name = "OPENAI_API_KEY",
-  --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-  --      },
-  --      gemini = {
-  --        model = "gemini-2.5-pro",
-  --        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-  --      },
-  --    },
-  --    web_search_engine = {
-  --      provider = "searxng",
-  --      providers = {
-  --        searxng = {
-  --          api_url_name = "SEARXNG_API_URL",
-  --          extra_request_body = {
-  --            format = "json",
-  --          },
-  --        },
-  --      },
-  --    },
-  --    behaviour = {
-  --      auto_approve_tool_permissions = false,
-  --    }
-  --  },
-  --  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  --  build = "make",
-  --  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-  --  dependencies = {
-  --    "nvim-treesitter/nvim-treesitter",
-  --    "stevearc/dressing.nvim",
-  --    "nvim-lua/plenary.nvim",
-  --    "MunifTanjim/nui.nvim",
-  --    --- The below dependencies are optional,
-  --    "echasnovski/mini.pick", -- for file_selector provider mini.pick
-  --    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-  --    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-  --    "ibhagwan/fzf-lua", -- for file_selector provider fzf
-  --    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-  --    -- {
-  --    --   -- support for image pasting
-  --    --   "HakonHarnes/img-clip.nvim",
-  --    --   event = "VeryLazy",
-  --    --   opts = {
-  --    --     -- recommended settings
-  --    --     default = {
-  --    --       embed_image_as_base64 = false,
-  --    --       prompt_for_file_name = false,
-  --    --       drag_and_drop = {
-  --    --         insert_mode = true,
-  --    --       },
-  --    --       -- required for Windows users
-  --    --       use_absolute_path = true,
-  --    --     },
-  --    --   },
-  --    -- },
-  --    -- {
-  --    --   -- Make sure to set this up properly if you have lazy=true
-  --    --   'MeanderingProgrammer/render-markdown.nvim',
-  --    --   opts = {
-  --    --     file_types = { "markdown", "Avante" },
-  --    --   },
-  --    --   ft = { "markdown", "Avante" },
-  --    -- },
-  --  },
-  -- },
-  -- yank over ssh over tmux over nvim
-  { 
-    "ojroques/vim-oscyank",
-    config = function()
-      -- Should be accompanied by a setting clipboard in tmux.conf, also see
-      -- https://github.com/ojroques/vim-oscyank#the-plugin-does-not-work-with-tmux
-      vim.g.oscyank_term = "default"
-      vim.g.oscyank_max_length = 0  -- unlimited
-      -- Below autocmd is for copying to OSC52 for any yank operation,
-      -- see https://github.com/ojroques/vim-oscyank#copying-from-a-register
-      vim.api.nvim_create_autocmd("TextYankPost", {
-        pattern = "*",
-        callback = function()
-          if vim.v.event.operator == "y" and vim.v.event.regname == "" then
-            vim.cmd('OSCYankRegister "')
-          end
-        end,
-      })
-    end,
   },
   -- Tree
   {
@@ -258,7 +137,6 @@ require('lazy').setup({
       }
     end,
   },
-  'ThePrimeagen/git-worktree.nvim',
   'tpope/vim-surround',
   'xiyaowong/nvim-transparent',
   {
@@ -330,16 +208,6 @@ require('lazy').setup({
   },
 
   {
-    "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup({
-        background_colour = "#000000",
-        enabled = false,
-      })
-    end
-  },
-
-  {
     "folke/noice.nvim",
     config = function()
       require("noice").setup({
@@ -362,12 +230,7 @@ require('lazy').setup({
       })
     end,
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
     }
   },
 
@@ -378,9 +241,6 @@ require('lazy').setup({
     "windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup {} end
   },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  -- },
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -421,13 +281,10 @@ require('lazy').setup({
   },
 
   'nvim-lualine/lualine.nvim', -- Fancier statusline
-  -- { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' }},
-  'nvim-telescope/telescope-symbols.nvim',
-  'ThePrimeagen/harpoon',
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', cond = vim.fn.executable 'make' == 1 },
@@ -461,9 +318,6 @@ require('lazy').setup({
   {
     "almo7aya/openingh.nvim"
   },
-  -- {
-  --   "ellisonleao/glow.nvim", config = true, cmd = "Glow"
-  -- },
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
@@ -490,39 +344,8 @@ require('lazy').setup({
       require("scrollbar").setup()
     end
   },
-  -- {
-  --   "nvim-neorg/neorg",
-  --   version = "v7.0.0",
-  --   ft = "norg",
-  --   run = ":Neorg sync-parsers", -- This is the important bit!
-  --   config = function()
-  --     require('neorg').setup {
-  --       load = {
-  --         ["core.defaults"] = {},
-  --         ["core.concealer"] = {},
-  --         ["core.integrations.treesitter"] = {},
-  --         ["core.esupports.indent"] = {},
-  --         ["core.summary"] = {},
-  --         ["core.completion"] = {
-  --           config = {
-  --             engine = "nvim-cmp",
-  --           }
-  --         },
-  --         ["core.export.markdown"] = {},
-  --         ["core.export"] = {},
-  --       }
-  --     }
-  --   end,
-  -- },
 
   -- Note taking
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-
-    -- Completion for `blink.cmp`
-    -- dependencies = { "saghen/blink.cmp" },
-  },
   {
     "epwalsh/obsidian.nvim",
     -- branch = "main",
@@ -543,66 +366,20 @@ require('lazy').setup({
       "nvim-lua/plenary.nvim",
     },
   },
-  {
-    "marcussimonsen/let-it-snow.nvim",
-    cmd = "LetItSnow", -- Wait with loading until command is run
-    opts = {},
-  },
 
-  -- Themes
-  { "arturgoms/moonbow.nvim" },
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , opts = ...},
-  { "rose-pine/neovim", name = "rose-pine" },
-  { "oxfist/night-owl.nvim" },
-  { "EdenEast/nightfox.nvim" },
-  { 'loctvl842/monokai-pro.nvim' },
-  { "adrian5/oceanic-next-vim"},
+  -- Theme
   {
-    "phha/zenburn.nvim",
+    "gambhirsharma/vesper.nvim",
+    priority = 1000,
     config = function()
-      require("zenburn").setup()
-    end
-  },
-  {"neanias/everforest-nvim"},
-  {"luisiacc/gruvbox-baby"},
-  {"slugbyte/lackluster.nvim"},
-  {
-    "wincent/base16-nvim",
-    lazy = false, -- load at start
-    priority = 1000, -- load first
-    config = function()
-      vim.cmd([[colorscheme gruvbox]])
+      vim.cmd([[colorscheme vesper]])
       vim.o.background = 'dark'
-      -- XXX: hi Normal ctermbg=NONE
       -- Make comments more prominent -- they are important.
       local bools = vim.api.nvim_get_hl(0, { name = 'Boolean' })
       vim.api.nvim_set_hl(0, 'Comment', bools)
       -- Make it clearly visible which argument we're at.
       local marked = vim.api.nvim_get_hl(0, { name = 'PMenu' })
       vim.api.nvim_set_hl(0, 'LspSignatureActiveParameter', { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true })
-      -- XXX
-      -- Would be nice to customize the highlighting of warnings and the like to make
-      -- them less glaring. But alas
-      -- https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
-      -- call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
     end
   },
-  { 'RRethy/nvim-base16' },
-  { 'gambhirsharma/vesper.nvim' },
-  {
-    'baliestri/aura-theme',
-    lazy = false,
-    priority = 1000,
-    config = function(plugin)
-      vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-      vim.cmd([[colorscheme aura-dark]])
-    end
-  },
-  { 'kooparse/vim-color-desert-night'},
-}
-  -- {
-  --   defaults = {
-  --     lazy = true,
-  --   }
-  -- }
-)
+})
