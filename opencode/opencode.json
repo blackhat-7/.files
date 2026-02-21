@@ -28,14 +28,14 @@
     "cloudsql-reader": {
       "type": "local",
       "command": [
-        "/Users/illusion/Documents/Work/Editing/aftershoot-cloud/mcp-servers/cloudsql-reader/cloudsql-reader"
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/cloudsql-reader/cloudsql-reader"
       ],
       "enabled": true
     },
     "mongo-reader": {
       "type": "local",
       "command": [
-        "/Users/illusion/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
       ],
       "enabled": true
     }
