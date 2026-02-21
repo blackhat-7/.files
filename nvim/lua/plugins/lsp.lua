@@ -165,7 +165,7 @@ require('lspconfig').basedpyright.setup({
 
 
 require('lspconfig').rust_analyzer.setup({
-  on_attack = on_attach,
+  on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     ['rust-analyzer'] = {

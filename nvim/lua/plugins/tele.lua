@@ -1,6 +1,3 @@
-require('telescope').load_extension('harpoon')
-require('telescope').load_extension('git_worktree')
-
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 local conf = require('telescope.config').values
@@ -59,6 +56,3 @@ vim.keymap.set('n', '<leader>gt', require('telescope.builtin').git_status, { des
 vim.keymap.set('n', '<leader>cm', require('telescope.builtin').git_commits, { desc = '' })
 vim.keymap.set('n', '<leader>th', ":Telescope colorscheme<CR>", { desc = 'Select [TH]eme' })
 vim.keymap.set('n', '<leader>fm', ":lua vim.lsp.buf.format({async = true})<CR>", { desc = 'LSP [F]or[M]at' })
-vim.keymap.set("n", "<Leader>sr", "<CMD>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", silent)
-vim.keymap.set("n", "<Leader>sR", "<CMD>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", silent)
-vim.keymap.set("n", "<Leader>fn", "<CMD>lua require('telescope').extensions.notify.notify()<CR>", silent)

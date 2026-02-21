@@ -3,7 +3,7 @@
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 
-    'python', 'go', 'lua', 'python', 'rust', 'typescript', 'regex', 
+    'python', 'go', 'lua', 'rust', 'typescript', 'regex', 
     'bash', 'markdown', 'markdown_inline', 'kdl', 'sql', 'xml'
   },
 
@@ -61,12 +61,6 @@ require('nvim-treesitter.configs').setup {
         ['[M'] = '@function.outer',
         ['[]'] = '@class.outer',
       },
-      -- goto_next = {
-      --   [']i'] = "@conditional.inner",
-      -- },
-      -- goto_previous = {
-      --   ['[i'] = "@conditional.inner",
-      -- }
     },
     swap = {
       enable = true,
