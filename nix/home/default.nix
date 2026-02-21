@@ -1,22 +1,18 @@
 { pkgs, config, lib, ... }:
 
 {
-  imports = [
-    ./programs
-  ];
+  imports = [ ./programs ];
 
-  # Basic home-manager configuration
   home.stateVersion = "23.11";
 
-  # Common packages for all platforms
+  # All packages consolidated
   home.packages = with pkgs; [
+    # Common packages
     neofetch
     exiftool
     tailscale
     python311
     python311Packages.pip
-    # opentofu
-    # terragrunt
     golangci-lint
     nodejs_24
     gopls
@@ -24,31 +20,50 @@
     rustup
     git
     ffmpeg_6-headless
-    exiftool
     exempi
+    
+    # Linux-specific packages
+    firefox
+    cowsay
+    wine
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.kubectl
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
+    docker
+    just
+    jdk21
+    github-copilot-cli
+    gemini-cli
+    dbeaver-bin
+    google-cloud-sql-proxy
+    geeqie
+    discord
+    vi-mongo
+    vicinae
+    wl-clipboard
+    mongodb-compass
   ];
 
-  # Common git configuration
+  # Git configuration
   programs.git = {
     enable = true;
     settings = {
       user.name = "blackhat-7";
-      user.email = "palshaunak7@gmail.com"; # Replace with your actual email
+      user.email = "palshaunak7@gmail.com";
     };
   };
 
-  # Other common configurations for both platforms
+  # Shell configuration
   programs.bash = {
     enable = true;
     enableCompletion = true;
     shellAliases = {
-      # Using lib.mkForce to override any conflicts
       ll = lib.mkForce "ls -la";
       ".." = "cd ..";
     };
   };
 
-  # Fish shell configuration
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -60,9 +75,39 @@
     };
   };
 
-  # Configure direnv for per-directory environment variables
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
+
+  # Linux-specific activation
+  home.activation.noisetorch-caps = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    /usr/bin/sudo ${pkgs.libcap}/bin/setcap 'CAP_SYS_RESOURCE+ep' "${pkgs.noisetorch}/bin/noisetorch"
+  '';
+
+  # Enable generic Linux target
+  targets.genericLinux.enable = true;
+
+  # XDG configuration
+  xdg.enable = true;
+
+  # Systemd user services
+  systemd.user.services.vicinae = {
+    Unit = {
+      Description = "Vicinae Launcher Server";
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.vicinae}/bin/vicinae server";
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+
+    Install = { 
+      WantedBy = [ "default.target" ]; 
+    };
+  };
+  
+  wayland.windowManager.hyprland.systemd.enable = true;
 }
