@@ -35,21 +35,21 @@
       "command": [
         "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/cloudsql-reader/cloudsql-reader"
       ],
-      "enabled": true
+      "enabled": false
     },
     "mongo-reader": {
       "type": "local",
       "command": [
         "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
       ],
-      "enabled": true
+      "enabled": false
     },
     "grafana-loki-reader": {
       "type": "local",
       "command": [
         "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/grafana-loki-reader/grafana-loki-reader"
       ],
-      "enabled": true
+      "enabled": false
     }
   }
 }
