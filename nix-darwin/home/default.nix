@@ -36,6 +36,7 @@
     pkgs.packer
     pkgs.webtorrent_desktop
     pkgs.moonlight-qt
+    pkgs.gitleaks
   ];
 
   launchd.agents.turn-on-night-shift = {
