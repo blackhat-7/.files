@@ -18,7 +18,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "Local LLM",
       "options": {
-        "baseURL": "http://100.64.0.1:7000/v1/", 
+        "baseURL": "http://100.64.0.1:7000/v1/",
         "apiKey": "none"
       },
       "models": {
@@ -33,23 +33,29 @@
     "cloudsql-reader": {
       "type": "local",
       "command": [
-        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/cloudsql-reader/cloudsql-reader"
-      ],
-      "enabled": false
+        "env-cmd",
+        "-f",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/env/dev/cloudsql-reader/app.env",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/dist/mcp-servers/cloudsql-reader"
+      ]
     },
     "mongo-reader": {
       "type": "local",
       "command": [
-        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/mongo-reader/mongo-reader"
-      ],
-      "enabled": false
+        "env-cmd",
+        "-f",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/env/dev/mongo-reader/app.env",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/dist/mcp-servers/mongo-reader"
+      ]
     },
     "grafana-loki-reader": {
       "type": "local",
       "command": [
-        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/mcp-servers/grafana-loki-reader/grafana-loki-reader"
-      ],
-      "enabled": false
+        "env-cmd",
+        "-f",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/env/dev/grafana-loki-reader/app.env",
+        "{env:HOME}/Documents/Work/Editing/aftershoot-cloud/dist/mcp-servers/grafana-loki-reader"
+      ]
     }
   }
 }
