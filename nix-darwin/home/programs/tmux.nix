@@ -25,27 +25,11 @@
         tmuxPlugins.sensible
         tmuxPlugins.yank
         tmuxPlugins.tmux-thumbs
-        tmuxPlugins.battery
+        # tmuxPlugins.battery
         # tmuxPlugins.tmux-floax
         tmuxPlugins.vim-tmux-navigator
         # tmuxPlugins.tmux-fzf
-        {
-            plugin = tmuxPlugins.catppuccin;
-            extraConfig = ''
-                set -g @catppuccin_flavor "mocha"
-                set -g @catppuccin_status_background "none"
-                set -g @catppuccin_window_status_style "none"
-                set -g @catppuccin_pane_status_enabled "off"
-                set -g @catppuccin_pane_border_status "off"
-            '';
-        }
-        {
-            plugin = tmuxPlugins.online-status;
-            extraConfig = ''
-                set -g @online_icon "ok"
-                set -g @offline_icon "nok"
-            '';
-        }
+        # tmuxPlugins.online-status
         {
             plugin = tmux-fzf-pane-switch;
             extraConfig = ''
@@ -78,50 +62,71 @@
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
-      # set status-bg default
-      # set -g status-position top
-      # set -g pane-active-border-style 'fg=magenta,bg=default'
-      # set -g pane-border-style 'fg=brightblack,bg=default'
-
       # Use vi keys
       set -gw mode-keys vi
       set -g status-keys vi
 
+      # Styling
+      # gruvbox material colorscheme
+      RED="#ea6962"
+      GREEN="#a9b665"
+      YELLOW="#d8a657"
+      BLUE="#7daea3"
+      MAGENTA="#d3869b"
+      CYAN="#89b482"
+      BLACK="#1d2021"
+      DARK_GRAY="#32302F"
+      LIGHT_GRAY="#4F4946"
+      BG="#32302F"
+      FG="#d4be98"
+
+      # Nerdfont characters
+      HALF_ROUND_OPEN="#(printf '\uE0B6')"
+      HALF_ROUND_CLOSE="#(printf '\uE0B4')"
+      TRIANGLE_OPEN="#(printf '\uE0B2')"
+      TRIANGLE_CLOSE="#(printf '\uE0B0')"
+
       # Status Bar
+      set-option -g status-position bottom
+      set-option -g status-style bg=$BG,fg=$FG
+      set-option -g status-justify centre
 
-      ## status left look and feel
-      set -g status-left-length 100
-      set -g status-left ""
-      set -ga status-left "#{?client_prefix,#{#[bg=#{@thm_red},fg=#{@thm_bg},bold]  #S },#{#[bg=#{@thm_bg},fg=#{@thm_green}]  #S }}"
-      set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_overlay_0},none]│"
-      set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_blue}]  #{=/-32/...:#{s|$USER|~|:#{b:pane_current_path}}} "
-      set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_overlay_0},none]#{?window_zoomed_flag,│,}"
-      set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_yellow}]#{?window_zoomed_flag,  zoom ,}"
+      # Status left
+      set-option -g status-left "\
+#[fg=$LIGHT_GRAY,bg=default]$HALF_ROUND_OPEN\
+#[bg=$LIGHT_GRAY,fg=$YELLOW]#S \
+#[fg=$LIGHT_GRAY,bg=default]$TRIANGLE_CLOSE\
+"
 
-      ## Status Bar - Right Look and Feel
-      set -g status-right-length 100
-      set -g status-right ""
-      set -ga status-right "#{?#{e|>=:10,#{battery_percentage}},#{#[bg=#{@thm_red},fg=#{@thm_bg}]},#{#[bg=#{@thm_bg},fg=#{@thm_pink}]}} #{battery_icon} #{battery_percentage} "
-      set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
-      set -ga status-right "#[bg=#{@thm_bg}]#{?#{==:#{online_status},ok},#[fg=#{@thm_mauve}] 󰖩 on ,#[fg=#{@thm_red},bold]#[reverse] 󰖪 off }"
+      # Status right
+      set-option -g status-right "\
+#[fg=$LIGHT_GRAY,bg=default]$TRIANGLE_OPEN\
+#[bg=$LIGHT_GRAY,fg=$CYAN] #h\
+#[fg=$LIGHT_GRAY,bg=default]$HALF_ROUND_CLOSE\
+"
 
-      ## General Status Bar Appearance
-      set -g status-position bottom
-      set -g status-style "bg=#{@thm_bg}"
-      set -g status-justify "absolute-centre"
+      set-option -g status-left-length 100
+      set-option -g status-right-length 100
 
-      # Window and Pane Styles
-      set -wg automatic-rename on
-      set -g automatic-rename-format "#{pane_current_command}"
-      set -g window-status-format " #I#{?#{!=:#{window_name},Window},: #W,} "
-      set -g window-status-style "bg=#{@thm_bg},fg=#{@thm_rosewater}"
-      set -g window-status-last-style "bg=#{@thm_bg},fg=#{@thm_peach}"
-      set -g window-status-activity-style "bg=#{@thm_red},fg=#{@thm_bg}"
-      set -g window-status-bell-style "bg=#{@thm_red},fg=#{@thm_bg},bold"
-      set -gF window-status-separator "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]│"
-      set -g window-status-current-format " #I#{?#{!=:#{window_name},Window},: #W,} "
-      set -g window-status-current-style "bg=#{@thm_peach},fg=#{@thm_bg},bold"
+      # Window status - inactive
+      set-option -g window-status-format "\
+ \
+#I\
+#[fg=$MAGENTA]:\
+#[fg=default]#W\
+ \
+"
 
+      # Window status - active
+      set-option -g window-status-current-format "\
+#[fg=$LIGHT_GRAY,bg=default]$HALF_ROUND_OPEN\
+#[bg=$LIGHT_GRAY,fg=default]#I\
+#[fg=$RED]:\
+#[fg=default]#W\
+#[fg=$LIGHT_GRAY,bg=default]$HALF_ROUND_CLOSE\
+"
+
+      set-option -g window-status-separator ""
 
       # Pane and Window Automatic Rename
       set -wg automatic-rename on
