@@ -43,7 +43,7 @@
     vicinae
     wl-clipboard
     mongodb-compass
-    element-desktop
+    # element-desktop
   ];
 
   # Git configuration
