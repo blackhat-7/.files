@@ -22,7 +22,9 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
--- Set colorscheme is handled in lazy.lua
+-- Set colorscheme
+vim.cmd("colorscheme gruvbox")
+
 
 --vim.cmd()
 vim.opt.clipboard = 'unnamedplus'
