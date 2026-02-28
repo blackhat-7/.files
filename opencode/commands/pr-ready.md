@@ -24,6 +24,7 @@ Make sure to go through each of the following list of things:
 - no nested functions
 
 ## Golang
+- refer `https://github.com/cockroachdb` for good practices for error handling, code structuring, resource management, and concurrency patterns
 - Descriptive Errors: Return detailed error information alongside normal values using multiple return values.
 - Avoid Panic: Do not use panic for normal error handling; reserve it for unrecoverable or "impossible" internal states
 - Resource Management: Use defer immediately after acquiring a resource (like a mutex or file) to ensure it is released regardless of the return path

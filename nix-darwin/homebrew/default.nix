@@ -15,6 +15,7 @@
       "ollama"
       "signal"
       "zed"
+      "element"
     ];
   };
 }
