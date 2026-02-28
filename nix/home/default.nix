@@ -11,8 +11,8 @@
     neofetch
     exiftool
     tailscale
-    python311
-    python311Packages.pip
+    python313
+    python313Packages.pip
     golangci-lint
     nodejs_24
     gopls
@@ -43,6 +43,7 @@
     vicinae
     wl-clipboard
     mongodb-compass
+    element-desktop
   ];
 
   # Git configuration
